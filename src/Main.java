@@ -1,3 +1,5 @@
+import javax.sound.midi.Soundbank;
+import java.sql.SQLOutput;
 import java.time.LocalDate;
 
 public class Main {
@@ -20,19 +22,16 @@ public class Main {
         }
     }
 
-    public static void calculateDeliveryDays(int distance) {
-        int deliveryDays = 0;
+    public static int calculateDeliveryDays(int distance) {
         if (distance <= 20) {
-            deliveryDays = 1;
+            return 1;
         } else if (distance <= 60) {
-            deliveryDays = 2;
+            return 2;
         } else if (distance <= 100) {
-            deliveryDays = 3;
+            return 3;
         } else {
-            System.out.println("Свыше 100 км доставки нет.");
-            return;
+            return 0; // Доставка невозможна
         }
-        System.out.println("Потребуется дней: " + deliveryDays);
     }
 
     public static void main(String[] args) {
@@ -49,8 +48,11 @@ public class Main {
         installApp(clientDeviceYear, osType);
 
         System.out.println("Task03");
-        int distance = 110; // Расстояние до клиента (в километрах)
-        calculateDeliveryDays(distance);
+        int distance = 10; // Расстояние до клиента (в километрах)
+        int deliveryDays=calculateDeliveryDays(distance);
+        if (deliveryDays > 0) {
+            System.out.println("Потребуется дней: " + deliveryDays + ".");
+        } else System.out.println("Доставка невозможна.");
 
     }
 }
